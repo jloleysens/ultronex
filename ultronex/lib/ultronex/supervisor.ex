@@ -7,8 +7,6 @@ defmodule Ultronex.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Ultronex.Registry, [Ultronex.Registry]),
-      supervisor(Ultronex.Scraper.Supervisor, []),
       worker(Ultronex.Spawner, [Ultronex.Spawner])
     ]
 

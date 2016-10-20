@@ -1,18 +1,27 @@
 defmodule Ultronex.Spawner.Helpers do
 
-  # Module attribute that stores the path to the scripts
-  @path_to_scripts "lib/ultronex/scripts"
+  defmacro __using__(_) do
+    quote do
+      import Supervisor.Spec
 
-  def list_scripts do
-    {:ok, scripts} = File.ls(@path_to_scripts)
-    Enum.each(scripts, &IO.puts(&1))
-  end
+      @path_to_scripts "lib/ultronex/scripts"
 
-  @spec running?(String.t) :: boolean
-  def running?(domain) do
-  end
+      def list_scripts do
+        {:ok, scripts} = File.ls(@path_to_scripts)
+      end
 
-  def start(domain) do
+      @spec running?(String.t) :: boolean
+      def running?(domain) do
+      end
+
+      def start(domain) do
+        children = [
+          worker(CollectionSupervisor, [domain], restart: :transient)
+        ]
+        Supervisor.start_child(children, strategy: :simple_one_for_one)
+      end
+
+    end
   end
 
 end

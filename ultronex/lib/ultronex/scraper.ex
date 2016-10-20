@@ -1,5 +1,4 @@
 defmodule Ultronex.Scraper do
-  use Hound.Helpers
 
   @path_to_scripts "lib/ultronex/scripts/"
 

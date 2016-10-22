@@ -14,7 +14,7 @@ defmodule Ultronex.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :hound],
+    [applications: [:logger, :httpoison, :hound, :timex],
       mod: {Ultronex, []}]
   end
 
@@ -35,6 +35,8 @@ defmodule Ultronex.Mixfile do
       {:hound, "~> 1.0.1"},
       # JSON stuff!
       {:poison, "~> 2.0"},
+      # Let's go on a journey... A journey through all time!
+      {:timex, "~>3.0"}
     ]
   end
 end

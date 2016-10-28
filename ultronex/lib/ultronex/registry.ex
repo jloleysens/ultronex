@@ -1,9 +1,7 @@
 defmodule Ultronex.Registry do
   use GenServer
 
-
   ## Client API
-  
 
   @doc """
   Starts the registry with a name

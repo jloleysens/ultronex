@@ -14,12 +14,15 @@ defmodule Ultronex.Spawner do
     GenServer.start_link(__MODULE__, :ok, name: name)
   end
 
+  def state?(server) do
+    GenServer.call(server, :state)
+  end
+
   ## Server Callbacks
   
   def init(:ok) do
 
     {:ok, data_sources} = list_scripts
-
 
     # Read all of the data sources into the state map and init with empty worker states
 
@@ -31,11 +34,15 @@ defmodule Ultronex.Spawner do
     {:ok, state}
   end
 
-  def handle_info(:check, state) do
+  def handle_call(:state, _from, state) do
+    {:reply, state, state}
+  end
 
+  def handle_info(:check, state) do
+    IO.inspect state
     # Run checks against the data sources
     state = spawn!(state)
-    IO.inspect state
+
     # Set up the next message
     Process.send_after(self(), :check, :timer.seconds(1))
     {:noreply, state}
